@@ -2,6 +2,7 @@
 global jugadores #Variable global para designar a los jugadores y sus puntuaciones
 jugadores = {'Pedro':[10], 'Karla':[30], 'Luis':[25], 'Samantha':[50]}#En un diccionario se guarda a los jugadores y sus puntuaciones
 Pregunta1 = {'Rusia':[50], 'Canada':[30], 'China':[10]}
+Lista = [1,2,3]
 dos = []
 randoms = []
 import time
@@ -57,34 +58,40 @@ def jugar(jugadores):
       dos.append(s)
       rand = random.choice([r,s])
       randoms.append(rand)
-      print("El primero en responder sera: ", rand)      
+      print("El primero en responder sera: ", rand)
+      if r in randoms:
+        randoms.append(s)
+      else:
+        randoms.append(r)      
       preguntas()
 
 def preguntas():
-  while jugadores:
+  while Lista:
+    leni = len(Lista) - 1
     print("Primera pregunta: \nPaís más grande:\n1.-Rusia\n2.-Canada\n3.-China")
-    print("Le toca a ",dos[0])
     rop = input("\nTu respuesta es: ")
     if rop in Pregunta1:
-        print("Le atinaste ")
-        if rop == "Rusia":
-            jugadores[randoms[0]].append(Pregunta1[rop][0])  # Accede al valor dentro de la lista y lo agrega
-            print("¡Puntuación agregada con éxito!")
-            print(f"Puntuaciones de {randoms[0]}: {jugadores[randoms[0]]}")
-            print(dos)
-            time.sleep(2)
-            principal()
+      print("Le atinaste ")
+      jugadores[randoms[0]].append(Pregunta1[rop][0])  # Accede al valor dentro de la lista y lo agrega
+      print("¡Puntuación agregada con éxito!")
+      print(f"Puntuaciones de {randoms[0]}: {jugadores[randoms[0]]}")
+      print("Jugadoresrandom",randoms)
+
+      print(dos)
+      time.sleep(2)
     else:
-      print("No le atinaste, te quedan 2 vidas\nLe toca a ",dos[1])
-      if rop in Pregunta1:
-        print("le atinaste ")
-        jugadores[randoms[1]].append(Pregunta1[rop][0])  # Accede al valor dentro de la lista y lo agrega
-        print("¡Puntuación agregada con éxito!")
-        print(f"Puntuaciones de {randoms[1]}: {jugadores[randoms[1]]}")
-        print(dos)
-        time.sleep(2)
-        principal()
-      
+      Lista.pop()
+      print("Te equivocaste, te quedan ",leni)
+      time.sleep(2)
+  print("No le atinaste, te quedan 0 vidas\nLe toca a ",dos[1])
+  rop = input("\nTu respuesta es: ")
+  if rop in Pregunta1:
+    print("le atinaste ")
+    jugadores[randoms[1]].append(Pregunta1[rop][0])  # Accede al valor dentro de la lista y lo agrega
+    print("¡Puntuación agregada con éxito!")
+    print(f"Puntuaciones de {randoms[1]}: {jugadores[randoms[1]]}")
+    print(dos)
+    time.sleep(2)
 
 def preguntabien():
   print("va")
