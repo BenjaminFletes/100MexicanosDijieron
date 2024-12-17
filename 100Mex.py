@@ -5,6 +5,7 @@ Pregunta1 = {'Rusia':[50], 'Canada':[30], 'China':[10]}
 Lista = [1,2,3]
 dos = []
 randoms = []
+Res = []
 import time
 from IPython.display import clear_output
 import random
@@ -66,24 +67,33 @@ def jugar(jugadores):
       preguntas()
 
 def preguntas():
+  global B
   while Lista:
     leni = len(Lista) - 1
     print("Primera pregunta: \nPaís más grande:\n1.-Rusia\n2.-Canada\n3.-China")
     rop = input("\nTu respuesta es: ")
     if rop in Pregunta1:
-      print("Le atinaste ")
-      jugadores[randoms[0]].append(Pregunta1[rop][0])  # Accede al valor dentro de la lista y lo agrega
-      print("¡Puntuación agregada con éxito!")
-      print(f"Puntuaciones de {randoms[0]}: {jugadores[randoms[0]]}")
-      print("Jugadoresrandom",randoms)
-
-      print(dos)
-      time.sleep(2)
+      if rop in Res:
+        Lista.pop()
+        print("Ya se respondió eso, te quedan ",leni)
+        time.sleep(2)
+        if Lista == []:
+          break
+      else:
+        Res.append(rop)
+        print("Le atinaste ")
+        jugadores[randoms[0]].append(Pregunta1[rop][0])  # Accede al valor dentro de la lista y lo agrega
+        print("¡Puntuación agregada con éxito!")
+        print(f"Puntuaciones de {randoms[0]}: {jugadores[randoms[0]]}")
+        print("Jugadoresrandom",randoms)
+        print(dos)
+        time.sleep(2)
+        Res.append(rop)
     else:
       Lista.pop()
       print("Te equivocaste, te quedan ",leni)
       time.sleep(2)
-  print("No le atinaste, te quedan 0 vidas\nLe toca a ",dos[1])
+  print("No le atinaste, te quedan 0 vidas\nLe toca a ",randoms[1])
   rop = input("\nTu respuesta es: ")
   if rop in Pregunta1:
     print("le atinaste ")
